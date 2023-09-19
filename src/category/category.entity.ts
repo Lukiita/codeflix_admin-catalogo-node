@@ -38,13 +38,18 @@ export class Category extends Entity {
     return this.category_id;
   }
 
+  public update(name: string, description?: string): void {
+    this.changeName(name);
+    this.changeDescription(description);
+  }
+
   public changeName(name: string): void {
     this.name = name;
     Category.validate(this);
   }
 
   public changeDescription(description: string): void {
-    this.description = description;
+    this.description = description ?? null;
     Category.validate(this);
   }
 

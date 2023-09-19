@@ -110,6 +110,16 @@ describe('Category Unit Tests', () => {
     });
   });
 
+  test("should update a category", () => {
+    const category = Category.create({
+      name: "Movie",
+    });
+    category.update('other name', 'some description');
+    expect(category.name).toBe("other name");
+    expect(category.description).toBe("some description");
+    expect(validateSpy).toBeCalledTimes(3);
+  });
+
   test("should change name", () => {
     const category = Category.create({
       name: "Movie",
@@ -126,6 +136,14 @@ describe('Category Unit Tests', () => {
     category.changeDescription("some description");
     expect(category.description).toBe("some description");
     expect(validateSpy).toBeCalledTimes(2);
+
+    category.changeDescription(null);
+    expect(category.description).toBeNull();
+    expect(validateSpy).toBeCalledTimes(3);
+
+    category.changeDescription(undefined);
+    expect(category.description).toBeNull();
+    expect(validateSpy).toBeCalledTimes(4);
   });
 
   test("should active a category", () => {
